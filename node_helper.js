@@ -9,12 +9,19 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'start':
-                setInterval(() => {
+                if (this.timer !== undefined) {
+                    clearInterval(this.timer)
+                    this.timer = undefined
+                }
+                this.timer = setInterval(() => {
                     this.updateBartSchedule(payload)
                 }, payload.update_interval);
                 break;
             case 'stop':
-
+                if (this.timer !== undefined) {
+                    clearInterval(this.timer)
+                    this.timer = undefined
+                }
                 break;
             
             default:
@@ -36,7 +43,7 @@ module.exports = NodeHelper.create({
                         const {date, time, station} = {...body.root}
                         return station.map(stn => {
                             stn.etd.map(etd => {
-                                
+
                             })
                             const etd = {
                                 from: stn.name,
