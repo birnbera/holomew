@@ -3,7 +3,14 @@ Module.register('holomew', {
 
     defaults: {
         update_interval: 6000,
-        stations: [],
+        bart_api: 'http://api.bart.gov/api/etd.aspx',
+        bart_api_options: {
+            cmd: 'etd',
+            dir: 's',
+            key: 'MW9S-E7SL-26DU-VV8V',
+            json: 'y',
+        },
+        bart_stations: ['ROCK', 'MCAR'],
         colnames: [
             'Leaving From', 
             'Final Destination', 
@@ -14,7 +21,7 @@ Module.register('holomew', {
     getStyles: function() {},
 
     start: function() {
-        this.sendSocketNotification('start')
+        this.sendSocketNotification('start', this.config)
     },
 
     stop: function() {
@@ -57,7 +64,7 @@ Module.register('holomew', {
         if (this.current_trains !== undefined) {
             this.current_trains.forEach(train => {
                 const row = document.createElement('row')
-                const tds = ['from', 'to', 'depart'].forEach(attr => {
+                const tds = ['from', 'to', 'depart', 'delay'].forEach(attr => {
                     const td = document.createElement('td')
                     td.innerHTML = train[attr]
                     row.appendChild(td)
