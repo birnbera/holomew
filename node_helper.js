@@ -81,10 +81,12 @@ module.exports = NodeHelper.create({
         Promise
             .all(results)
             .then(results => {
-                this.logBroswer(results)
+                const final_results = []
+                results.forEach(result => final_results.push(...result))
+                this.logBroswer(final_results)
                 this.sendSocketNotification(
                     'new_trains', 
-                    {last_update: this.last_update, new_trains: results}
+                    {last_update: this.last_update, new_trains: final_results}
                 )
             })
             .catch(err => {
