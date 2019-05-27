@@ -74,11 +74,13 @@ module.exports = NodeHelper.create({
                         this.logBroswer('error getting bart schedule')
                     } else {
                         const station_trains = this.parseTrainsFromBody(body)
+                        this.logBroswer('results')
+                        this.logBroswer(results)
                         results.push(...station_trains)
+                        this.logBroswer(results)
                     }
                 })
         })
-        this.logBroswer(results)
         this.sendSocketNotification(
             'new_trains', 
             {last_update: this.last_update, new_trains: results}
