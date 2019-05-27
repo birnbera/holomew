@@ -79,7 +79,8 @@ module.exports = NodeHelper.create({
                         this.logBroswer('error getting bart schedule')
                         console.log('error getting bart schedule')
                     } else {
-                        this.logBroswer(body)
+
+                        this.logBroswer('keys: ' + Object.keys(body))
                         const station_trains = this.parseTrainsFromBody(body)
                         results.push(...station_trains)
                     }
