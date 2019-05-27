@@ -73,5 +73,8 @@ Module.register('holomew', {
                 table.appendChild(row)
             })
         }
+        const div = document.createElement('div')
+        div.appendChild(table)
+        return div
     },
 })
