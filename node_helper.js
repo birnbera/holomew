@@ -62,30 +62,32 @@ module.exports = NodeHelper.create({
     },
 
     updateBartSchedule: function(payload) {
-        const results = []
-        payload.bart_stations.forEach(stn => {
-            request
-                .get({
-                    url: payload.bart_api,
-                    qs: {...payload.bart_api_options, orig: stn},
-                    json: true
-                }, (err, res, body) => {
-                    if (err) {
-                        this.logBroswer('error getting bart schedule')
-                    } else {
-                        const station_trains = this.parseTrainsFromBody(body)
-                        this.logBroswer('results')
-                        this.logBroswer(results)
-                        results.push(...station_trains)
-                        this.logBroswer(results)
-                    }
-                })
+        const results = payload.bart_stations.map(stn => {
+            return promise = new Promise((resolve, reject) => {
+                request
+                    .get({
+                        url: payload.bart_api,
+                        qs: {...payload.bart_api_options, orig: stn},
+                        json: true
+                    }, (err, res, body) => {
+                        if (err) {
+                            return reject(err)
+                        } else {
+                            return resolve(this.parseTrainsFromBody(body))
+                        }
+                    })
+            })
         })
-        this.logBroswer('after payload')
-        this.logBroswer(results)
-        this.sendSocketNotification(
-            'new_trains', 
-            {last_update: this.last_update, new_trains: results}
-        )
+        Promise
+            .all(results)
+            .then(results => {
+                this.sendSocketNotification(
+                    'new_trains', 
+                    {last_update: this.last_update, new_trains: results}
+                )
+            })
+            .catch(err => {
+                this.logBroswer(err)
+            })
     }
 })
