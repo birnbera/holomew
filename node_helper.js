@@ -56,7 +56,7 @@ module.exports = NodeHelper.create({
 
     updateBartSchedule: function(payload) {
         const results = []
-        const etds = payload.bart_stations.forEach(stn => {
+        payload.bart_stations.forEach(stn => {
             request
                 .get({
                     url: payload.bart_api,
@@ -71,6 +71,9 @@ module.exports = NodeHelper.create({
                     Log.log('error getting bart schedule')
                 })
         })
-        this.sendSocketNotification('new_trains', results)
+        this.sendSocketNotification(
+            'new_trains', 
+            {last_update: this.last_update, new_trains: results}
+        )
     }
 })

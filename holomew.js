@@ -39,7 +39,8 @@ Module.register('holomew', {
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'new_trains':
-                this.current_trains = [...payload]
+                this.current_trains = [...payload.new_trains]
+                this.last_update = {...payload.last_update}
                 this.updateDom(500)
                 break;
         
