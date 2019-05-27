@@ -73,7 +73,7 @@ Module.register('holomew', {
         table.appendChild(tr)
 
         const caption = document.createElement('caption')
-        caption.innerHTML = this.last_update.time;
+        caption.innerHTML = 'Last update: ' + this.last_update.time;
         caption.className = 'small thin dimmed'
         caption.setAttribute('style', 'caption-side: bottom')
         table.appendChild(caption)
@@ -92,6 +92,7 @@ Module.register('holomew', {
                 const no_trains = document.createElement('td')
                 no_trains.innerHTML = 'No current trains'
                 no_trains.setAttribute('colspan', 4)
+                no_trains.className = 'small dimmed'
                 table.appendChild(no_trains)
             }
 
