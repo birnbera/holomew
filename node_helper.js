@@ -93,7 +93,7 @@ module.exports = NodeHelper.create({
                     if (b.depart === "Leaving") {
                         return 1
                     }
-                    return a.depart < b.depart ? -1 : 1
+                    return parseInt(a.depart) < parseInt(b.depart) ? -1 : 1
                 })
                 this.logBroswer(final_results)
                 this.sendSocketNotification(
