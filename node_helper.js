@@ -5,6 +5,9 @@ module.exports = NodeHelper.create({
     // start: function() {},
 
     // stop: function() {},
+    logBroswer: function(msg) {
+        this.sendSocketNotification('log', 'node helper: ' + msg)
+    },
 
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
@@ -44,10 +47,10 @@ module.exports = NodeHelper.create({
             this.last_update = {date: date, time: time}
             const {name, etd} = {...station}
             const results = []
-            console.log(etd)
+            this.logBroswer(etd)
             etd.forEach(etd_i => {
                 const {destination, estimate} = {...etd_i}
-                console.log(estimate)
+                this.logBroswer(estimate)
                 const estimates = estimate.forEach(estimate_i => {
                     const {minutes, delay, hexcolor} = {...estimate_i}
                     results.push({
@@ -73,6 +76,7 @@ module.exports = NodeHelper.create({
                     json: true
                 }, (err, res, body) => {
                     if (err) {
+                        this.logBroswer('error getting bart schedule')
                         console.log('error getting bart schedule')
                     } else {
                         const station_trains = this.parseTrainsFromBody(body)

@@ -49,6 +49,7 @@ Module.register('holomew', {
                 break;
         
             default:
+                console.log(payload)
                 break;
         }
     },
