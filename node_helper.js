@@ -83,6 +83,18 @@ module.exports = NodeHelper.create({
             .then(results => {
                 const final_results = []
                 results.forEach(result => final_results.push(...result))
+                final_results.sort((a, b) => {
+                    if (a.depart === b.depart) {
+                        return 0
+                    }
+                    if (a.depart === "Leaving") {
+                        return -1
+                    }
+                    if (b.depart === "Leaving") {
+                        return 1
+                    }
+                    return a.depart < b.depart ? -1 : 1
+                })
                 this.logBroswer(final_results)
                 this.sendSocketNotification(
                     'new_trains', 
