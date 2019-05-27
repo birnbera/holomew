@@ -2,13 +2,14 @@ const NodeHelper = require('node_helper')
 const request = require('request')
 
 module.exports = NodeHelper.create({
-    start: function() {},
+    // start: function() {},
 
-    stop: function() {},
+    // stop: function() {},
 
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'start':
+                console.log('received start')
                 if (this.timer !== undefined) {
                     clearInterval(this.timer)
                     this.timer = undefined
@@ -18,6 +19,7 @@ module.exports = NodeHelper.create({
                 }, payload.update_interval);
                 break;
             case 'stop':
+                console.log('received stop')
                 if (this.timer !== undefined) {
                     clearInterval(this.timer)
                     this.timer = undefined
@@ -55,6 +57,7 @@ module.exports = NodeHelper.create({
     },
 
     updateBartSchedule: function(payload) {
+        console.log('update bart')
         const results = []
         payload.bart_stations.forEach(stn => {
             request

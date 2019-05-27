@@ -40,6 +40,7 @@ Module.register('holomew', {
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'new_trains':
+                console.log('received new trains')
                 this.current_trains = [...payload.new_trains]
                 this.last_update = {...payload.last_update}
                 Log.log('new update at: ' + this.last_update.time)
@@ -78,7 +79,7 @@ Module.register('holomew', {
         }
         const div = document.createElement('div')
         div.appendChild(table)
-        div.className = 'large light'
+        div.className = 'small bold'
         return div
     },
 })
