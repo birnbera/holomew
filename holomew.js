@@ -81,6 +81,8 @@ Module.register('holomew', {
         if (this.current_trains !== undefined) {
             this.current_trains.forEach(train => {
                 const tr = document.createElement('tr')
+                tr.className = 'small light'
+                tr.setAttribute('style', 'color: ' + train.color)
                 const tds = ['from', 'to', 'depart', 'delay'].forEach(attr => {
                     const td = document.createElement('td')
                     td.innerHTML = train[attr]

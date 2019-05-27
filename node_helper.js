@@ -47,7 +47,7 @@ module.exports = NodeHelper.create({
                     results.push({
                         from: name, 
                         to: destination, 
-                        time: minutes,
+                        depart: minutes,
                         delay: delay,
                         color: hexcolor
                     })
