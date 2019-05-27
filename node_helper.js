@@ -45,7 +45,7 @@ module.exports = NodeHelper.create({
         } else {
             const {date, time, station} = {...body.root}
             this.last_update = {date: date, time: time}
-            const {name, etd} = {...station}
+            const {name, etd} = {...station[0]}
             const results = []
             this.logBroswer(etd)
             etd.forEach(etd_i => {
