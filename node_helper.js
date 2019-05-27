@@ -44,8 +44,10 @@ module.exports = NodeHelper.create({
             this.last_update = {date: date, time: time}
             const {name, etd} = {...station}
             const results = []
+            console.log(etd)
             etd.forEach(etd_i => {
                 const {destination, estimate} = {...etd_i}
+                console.log(estimate)
                 const estimates = estimate.forEach(estimate_i => {
                     const {minutes, delay, hexcolor} = {...estimate_i}
                     results.push({
