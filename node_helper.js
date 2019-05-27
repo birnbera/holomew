@@ -2,17 +2,14 @@ const NodeHelper = require('node_helper')
 const request = require('request')
 
 module.exports = NodeHelper.create({
-    // start: function() {},
-
-    // stop: function() {},
     logBroswer: function(msg) {
-        this.sendSocketNotification('log', JSON.stringify({node_helper: msg}))
+        this.sendSocketNotification('log', JSON.stringify(msg))
     },
 
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'start':
-                console.log('received start')
+                this.logBroswer('node_helper received start')
                 if (this.timer !== undefined) {
                     clearInterval(this.timer)
                     this.timer = undefined
@@ -22,7 +19,7 @@ module.exports = NodeHelper.create({
                 }, payload.update_interval);
                 break;
             case 'stop':
-                console.log('received stop')
+                this.logBroswer('node_helper received stop')
                 if (this.timer !== undefined) {
                     clearInterval(this.timer)
                     this.timer = undefined
@@ -35,14 +32,8 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
+        this.logBroswer({parseTrainsFromBody: {body: body}})
         try {
-            this.logBroswer(body.root.message)
-        } catch(e) {
-            this.logBroswer(body)
-        }
-        if (body.root.message !== '') {
-            return []
-        } else {
             const {date, time, station} = {...body.root}
             this.last_update = {date: date, time: time}
             const {name, etd} = {...station[0]}
@@ -63,6 +54,8 @@ module.exports = NodeHelper.create({
                 })
             })
             return results
+        } catch(e) {
+            return []
         }
     },
 

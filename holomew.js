@@ -44,7 +44,7 @@ Module.register('holomew', {
                 this.current_trains = [...payload.new_trains]
                 this.last_update = {...payload.last_update}
                 Log.log('new update at: ' + this.last_update.time)
-                Log.log('new trains receive: ' + this.current_trains)
+                Log.log('new trains received: ' + JSON.stringify(this.current_trains))
                 this.updateDom(500)
                 break;
         
@@ -72,6 +72,12 @@ Module.register('holomew', {
         })
         table.appendChild(tr)
 
+        const caption = document.createElement('caption')
+        caption.innerHTML = this.last_update.time;
+        caption.className = 'small thin dimmed'
+        caption.setAttribute('style', 'caption-side: bottom')
+        table.appendChild(caption)
+
         if (this.current_trains !== undefined) {
             this.current_trains.forEach(train => {
                 const tr = document.createElement('tr')
@@ -85,9 +91,10 @@ Module.register('holomew', {
             if (this.current_trains.length === 0) {
                 const p = document.createElement('p')
                 p.innerHTML = 'No current trains'
-                p.className = 'thin small dimmed'
+                p.className = 'small thin'
                 div.appendChild(p)
             }
+
         }
         return div
     },
