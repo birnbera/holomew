@@ -1,3 +1,5 @@
+import { stringify } from "querystring";
+
 Module.register('holomew', {
     requiresVersion: '2.1.0',
 
@@ -49,7 +51,7 @@ Module.register('holomew', {
                 break;
         
             default:
-                console.log(payload)
+                console.log(JSON.stringify(payload))
                 break;
         }
     },

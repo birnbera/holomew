@@ -6,7 +6,7 @@ module.exports = NodeHelper.create({
 
     // stop: function() {},
     logBroswer: function(msg) {
-        this.sendSocketNotification('log', 'node helper: ' + msg)
+        this.sendSocketNotification('log', {node_helper: msg})
     },
 
     socketNotificationReceived: function(notification, payload) {
@@ -79,8 +79,6 @@ module.exports = NodeHelper.create({
                         this.logBroswer('error getting bart schedule')
                         console.log('error getting bart schedule')
                     } else {
-
-                        this.logBroswer('keys: ' + Object.keys(body))
                         const station_trains = this.parseTrainsFromBody(body)
                         results.push(...station_trains)
                     }
