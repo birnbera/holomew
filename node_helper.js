@@ -6,7 +6,7 @@ module.exports = NodeHelper.create({
 
     // stop: function() {},
     logBroswer: function(msg) {
-        this.sendSocketNotification('log', {node_helper: msg})
+        this.sendSocketNotification('log', JSON.stringify({node_helper: msg}))
     },
 
     socketNotificationReceived: function(notification, payload) {

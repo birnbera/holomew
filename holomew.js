@@ -51,7 +51,7 @@ Module.register('holomew', {
                 break;
         
             default:
-                console.log(JSON.stringify(payload))
+                console.log(payload)
                 break;
         }
     },
