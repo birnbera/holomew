@@ -36,9 +36,9 @@ module.exports = NodeHelper.create({
 
     parseTrainsFromBody: function(body) {
         try {
-            console.log(body.root.message)
+            this.logBroswer(body.root.message)
         } catch(e) {
-            console.log(body)
+            this.logBroswer(body)
         }
         if (body.root.message !== '') {
             return []
@@ -77,7 +77,6 @@ module.exports = NodeHelper.create({
                 }, (err, res, body) => {
                     if (err) {
                         this.logBroswer('error getting bart schedule')
-                        console.log('error getting bart schedule')
                     } else {
                         const station_trains = this.parseTrainsFromBody(body)
                         results.push(...station_trains)
