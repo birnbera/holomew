@@ -48,7 +48,7 @@ module.exports = NodeHelper.create({
                         from: name, 
                         to: destination, 
                         depart: minutes,
-                        delay: delay,
+                        delay: Math.floor(parseInt(delay) / 60),
                         color: hexcolor
                     })
                 })
