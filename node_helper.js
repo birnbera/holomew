@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
-        Log.log(body)
+        console.log(body)
         if (body.root.message !== '') {
             return []
         } else {
