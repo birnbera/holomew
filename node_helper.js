@@ -81,6 +81,8 @@ module.exports = NodeHelper.create({
                     }
                 })
         })
+        this.logBroswer('after payload')
+        this.logBroswer(results)
         this.sendSocketNotification(
             'new_trains', 
             {last_update: this.last_update, new_trains: results}
