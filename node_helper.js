@@ -53,7 +53,7 @@ module.exports = NodeHelper.create({
                     })
                 })
             })
-            this.logBroswer(results)
+            // this.logBroswer(results)
             return results
         } catch(e) {
             this.logBroswer(e)
@@ -78,6 +78,7 @@ module.exports = NodeHelper.create({
                     }
                 })
         })
+        this.logBroswer(results)
         this.sendSocketNotification(
             'new_trains', 
             {last_update: this.last_update, new_trains: results}
