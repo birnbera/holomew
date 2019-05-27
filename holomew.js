@@ -14,7 +14,8 @@ Module.register('holomew', {
         colnames: [
             'Leaving From', 
             'Final Destination', 
-            'Departure Time'
+            'Departure Time',
+            'Current Delay'
         ]
     },
 
@@ -41,6 +42,8 @@ Module.register('holomew', {
             case 'new_trains':
                 this.current_trains = [...payload.new_trains]
                 this.last_update = {...payload.last_update}
+                Log.log('new update at: ' + this.last_update.time)
+                Log.log('new trains receive: ' + this.current_trains)
                 this.updateDom(500)
                 break;
         
@@ -53,28 +56,29 @@ Module.register('holomew', {
 
     getDom: function() {
         const table = document.createElement('table')
-        const row = document.createElement('tr')
+        const tr = document.createElement('tr')
         this.config.colnames.forEach(header => {
             const th = document.createElement('th')
             th.setAttribute('scope', 'col')
             th.innerHTML = header
-            row.appendChild(th)            
+            tr.appendChild(th)            
         })
-        table.appendChild(row)
+        table.appendChild(tr)
 
         if (this.current_trains !== undefined) {
             this.current_trains.forEach(train => {
-                const row = document.createElement('row')
+                const tr = document.createElement('tr')
                 const tds = ['from', 'to', 'depart', 'delay'].forEach(attr => {
                     const td = document.createElement('td')
                     td.innerHTML = train[attr]
-                    row.appendChild(td)
+                    tr.appendChild(td)
                 })
-                table.appendChild(row)
+                table.appendChild(tr)
             })
         }
         const div = document.createElement('div')
         div.appendChild(table)
+        div.className = 'large light'
         return div
     },
 })
