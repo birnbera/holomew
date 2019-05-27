@@ -55,6 +55,7 @@ module.exports = NodeHelper.create({
             })
             return results
         } catch(e) {
+            this.logBroswer(e.msg)
             return []
         }
     },

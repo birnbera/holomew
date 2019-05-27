@@ -89,10 +89,10 @@ Module.register('holomew', {
                 table.appendChild(tr)
             })
             if (this.current_trains.length === 0) {
-                const p = document.createElement('p')
-                p.innerHTML = 'No current trains'
-                p.className = 'small thin'
-                div.appendChild(p)
+                const no_trains = document.createElement('td')
+                no_trains.innerHTML = 'No current trains'
+                no_trains.setAttribute('colspan', 4)
+                table.appendChild(no_trains)
             }
 
         }
