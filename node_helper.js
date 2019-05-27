@@ -81,6 +81,7 @@ module.exports = NodeHelper.create({
         Promise
             .all(results)
             .then(results => {
+                this.logBroswer(results)
                 this.sendSocketNotification(
                     'new_trains', 
                     {last_update: this.last_update, new_trains: results}
