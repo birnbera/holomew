@@ -19,7 +19,7 @@ Module.register('holomew', {
         ]
     },
 
-    getStyles: function() {},
+    // getStyles: function() {},
 
     start: function() {
         this.sendSocketNotification('start', this.config)
