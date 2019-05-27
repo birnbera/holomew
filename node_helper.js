@@ -32,6 +32,7 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
+        console.log(body)
         if (body.root.message !== '') {
             return []
         } else {
