@@ -32,6 +32,11 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
+        try {
+            console.log(body.root.message)
+        } catch(e) {
+            console.log(body)
+        }
         if (body.root.message !== '') {
             return []
         } else {
@@ -52,7 +57,7 @@ module.exports = NodeHelper.create({
                     })
                 })
             })
-
+            return results
         }
     },
 
