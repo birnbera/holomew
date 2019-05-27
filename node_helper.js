@@ -32,7 +32,6 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
-        console.log(body)
         if (body.root.message !== '') {
             return []
         } else {
@@ -58,7 +57,6 @@ module.exports = NodeHelper.create({
     },
 
     updateBartSchedule: function(payload) {
-        console.log('update bart')
         const results = []
         payload.bart_stations.forEach(stn => {
             request
@@ -66,13 +64,13 @@ module.exports = NodeHelper.create({
                     url: payload.bart_api,
                     qs: {...payload.bart_api_options, orig: stn},
                     json: true
-                })
-                .on('response', (res) => {
-                    const station_trains = this.parseTrainsFromBody(res.body)
-                    results.push(...station_trains)
-                })
-                .on('error', (err) => {
-                    Log.log('error getting bart schedule')
+                }, (err, res, body) => {
+                    if (err) {
+                        console.log('error getting bart schedule')
+                    } else {
+                        const station_trains = this.parseTrainsFromBody(body)
+                        results.push(...station_trains)
+                    }
                 })
         })
         this.sendSocketNotification(

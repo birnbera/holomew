@@ -56,7 +56,12 @@ Module.register('holomew', {
     notificationReceived: function(notification, payload, sender) {},
 
     getDom: function() {
+        const div = document.createElement('div')
+        div.className = 'small bold'
+
         const table = document.createElement('table')
+        div.appendChild(table)
+
         const tr = document.createElement('tr')
         this.config.colnames.forEach(header => {
             const th = document.createElement('th')
@@ -76,10 +81,13 @@ Module.register('holomew', {
                 })
                 table.appendChild(tr)
             })
+            if (this.current_trains.length === 0) {
+                const p = document.createElement('p')
+                p.innerHTML = 'No current trains'
+                p.className = 'thin small dimmed'
+                div.appendChild(p)
+            }
         }
-        const div = document.createElement('div')
-        div.appendChild(table)
-        div.className = 'small bold'
         return div
     },
 })
