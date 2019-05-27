@@ -29,34 +29,48 @@ module.exports = NodeHelper.create({
         }
     },
 
+    parseTrainsFromBody: function(body) {
+        if (body.root.message !== '') {
+            return []
+        } else {
+            const {date, time, station} = {...body.root}
+            this.last_update = {date: date, time: time}
+            const {name, etd} = {...station}
+            const results = []
+            etd.forEach(etd_i => {
+                const {destination, estimate} = {...etd_i}
+                const estimates = estimate.forEach(estimate_i => {
+                    const {minutes, delay, hexcolor} = {...estimate_i}
+                    results.push({
+                        from: name, 
+                        to: destination, 
+                        time: minutes,
+                        delay: delay,
+                        color: hexcolor
+                    })
+                })
+            })
+
+        }
+    },
+
     updateBartSchedule: function(payload) {
-        const etds = payload.bart_stations.map(stn => {
+        const results = []
+        const etds = payload.bart_stations.forEach(stn => {
             request
                 .get({
                     url: payload.bart_api,
                     qs: {...payload.bart_api_options, orig: stn},
                     json: true
                 })
-                .on('response', function(res) {
-                    const { body } = {...res}
-                    if (body.root.message === '') {
-                        const {date, time, station} = {...body.root}
-                        return station.map(stn => {
-                            stn.etd.map(etd => {
-
-                            })
-                            const etd = {
-                                from: stn.name,
-                                to: 
-                            }
-                        })
-                    }
-                    
+                .on('response', (res) => {
+                    const station_trains = this.parseTrainsFromBody(res.body)
+                    results.push(...station_trains)
                 })
-                .on('error', function(err) {
+                .on('error', (err) => {
                     Log.log('error getting bart schedule')
                 })
         })
-
+        this.sendSocketNotification('new_trains', results)
     }
 })
