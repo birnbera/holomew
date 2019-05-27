@@ -1,5 +1,3 @@
-import { stringify } from "querystring";
-
 Module.register('holomew', {
     requiresVersion: '2.1.0',
 
