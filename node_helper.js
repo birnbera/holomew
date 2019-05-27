@@ -32,16 +32,16 @@ module.exports = NodeHelper.create({
     },
 
     parseTrainsFromBody: function(body) {
-        this.logBroswer({parseTrainsFromBody: {body: body}})
+        // this.logBroswer({parseTrainsFromBody: {body: body}})
         try {
             const {date, time, station} = {...body.root}
             this.last_update = {date: date, time: time}
             const {name, etd} = {...station[0]}
             const results = []
-            this.logBroswer(etd)
+            // this.logBroswer(etd)
             etd.forEach(etd_i => {
                 const {destination, estimate} = {...etd_i}
-                this.logBroswer(estimate)
+                // this.logBroswer(estimate)
                 const estimates = estimate.forEach(estimate_i => {
                     const {minutes, delay, hexcolor} = {...estimate_i}
                     results.push({

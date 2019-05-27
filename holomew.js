@@ -40,11 +40,11 @@ Module.register('holomew', {
     socketNotificationReceived: function(notification, payload) {
         switch (notification) {
             case 'new_trains':
-                console.log('received new trains')
+                // console.log('received new trains')
                 this.current_trains = [...payload.new_trains]
                 this.last_update = {...payload.last_update}
-                Log.log('new update at: ' + this.last_update.time)
-                Log.log('new trains received: ' + JSON.stringify(this.current_trains))
+                // Log.log('new update at: ' + this.last_update.time)
+                // Log.log('new trains received: ' + JSON.stringify(this.current_trains))
                 this.updateDom(500)
                 break;
         
