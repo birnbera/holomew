@@ -53,6 +53,7 @@ module.exports = NodeHelper.create({
                     })
                 })
             })
+            this.logBroswer(results)
             return results
         } catch(e) {
             this.logBroswer(e)
