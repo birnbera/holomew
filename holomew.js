@@ -2,7 +2,7 @@ Module.register('holomew', {
     requiresVersion: '2.1.0',
 
     defaults: {
-        update_interval: 6000,
+        update_interval: 10000,
         bart_api: 'http://api.bart.gov/api/etd.aspx',
         bart_api_options: {
             cmd: 'etd',
@@ -45,7 +45,11 @@ Module.register('holomew', {
                 this.last_update = {...payload.last_update}
                 // Log.log('new update at: ' + this.last_update.time)
                 // Log.log('new trains received: ' + JSON.stringify(this.current_trains))
-                this.updateDom(500)
+                if (this.current_trains.length === 0) {
+                    this.updateDom(1000)
+                } else {
+                    this.updateDom()
+                }
                 break;
         
             default:
