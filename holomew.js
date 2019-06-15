@@ -83,7 +83,7 @@ Module.register('holomew', {
         table.appendChild(caption)
 
         if (this.current_trains !== undefined) {
-            this.current_trains.forEach(train => {
+            this.current_trains.slice(0, 10).forEach(train => {
                 const tr = document.createElement('tr')
                 tr.className = 'small light'
                 tr.setAttribute('style', 'color: ' + train.color)
